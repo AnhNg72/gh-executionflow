@@ -1,0 +1,8 @@
+name: Reusable Deploy
+on: workflow_call # allows this WF to be called from another WF
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output information
+        run: echo "Deploying and uploading"
