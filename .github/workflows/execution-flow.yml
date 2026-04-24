@@ -33,9 +33,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Test code
+        id: run-tests #added id to the step that is to be referenced in condition if below
         run: npm run test
       - name: Upload test report
-        uses: actions/upload-artifact@v3
+        if: steps.run-tests.outcome == failure #added if condition that references the id of the step above. If the above step fails, upload a test report
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: test.json
