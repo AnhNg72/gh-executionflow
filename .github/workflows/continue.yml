@@ -39,7 +39,7 @@ jobs:
         id: run-tests #added id to the step that is to be referenced in condition if below
         run: npm run test
       - name: Upload test report
-        if: failure() && steps.run-tests.outcome == 'failure' #added if condition that references the id of the step above. If the above step fails, upload a test report
+        #if: failure() && steps.run-tests.outcome == 'failure' #remove if check when continue-on-error is set
         uses: actions/upload-artifact@v4
         with:
           name: test-report
