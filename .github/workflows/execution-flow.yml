@@ -13,9 +13,10 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules # instead of caching in ~/.npm folder, we cache in node node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true' # added condition if the previous step's output is the cache-hit output
         run: npm ci
       - name: Lint code
         run: npm run lint
@@ -28,9 +29,10 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules # instead of caching in ~/.npm folder, we cache in node node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true' # added condition if the previous step's output is the cache-hit output
         run: npm ci
       - name: Test code
         id: run-tests #added id to the step that is to be referenced in condition if below
@@ -51,9 +53,10 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules # instead of caching in ~/.npm folder, we cache in node node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true' # added condition if the previous step's output is the cache-hit output
         run: npm ci
       - name: Build website
         id: build-website
